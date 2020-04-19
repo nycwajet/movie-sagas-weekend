@@ -11,7 +11,7 @@ class Details extends Component {
 
     editMovie = () => {
         this.props.history.push('/edit');
-        this.props.dispatch({type: 'GET_DETAILS', payload: {...this.props.item}})
+        this.props.dispatch({type: 'GET_DETAILS', payload: {...this.props.movie}})
     }
 
 

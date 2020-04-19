@@ -30,7 +30,7 @@ class App extends Component {
           <div>
               <Route exact path="/" component={Home} />
               <Route exact path="/details" component={MovieDetails} />
-              {/* <Route exact path="/edit" component={MovieEdit} /> */}
+              <Route exact path="/edit" component={MovieEdit} />
             </div>
         </div>
       </Router>

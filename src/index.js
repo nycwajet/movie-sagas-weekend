@@ -39,10 +39,10 @@ function* getDetailSaga(action) {
         console.log(response.data)
         yield put({
             type: 'GET_DETAILS',
-            payload: response.data[0]
+            payload: response.data
         })
-    } catch (err) {
-        console.log(err)
+    } catch (error) {
+        console.log('error in detail saga',error);
     }
 }
 

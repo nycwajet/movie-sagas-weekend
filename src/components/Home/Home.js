@@ -16,9 +16,9 @@ class Home extends Component {
 
           <div>
 
-          {/* {this.props.reduxStore.item.map(item => {
-                return <MovieCard id={item.id} key={item.id} />
-            })} */}
+          {this.props.reduxStore.movie.map(movie => {
+                return <MovieCard id={movie.id} key={movie.id} />
+            })}
         
         </div>
       </Router>

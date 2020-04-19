@@ -17,16 +17,15 @@ class MovieCard extends Component {
 
         let id = this.props.id
         let index = id -1
-        let item = this.props.reduxStore.item[index]
+        let movie = this.props.reduxStore.movie
 
         return (
             <Router>
                 <div>
-                    <h2>{item.title}</h2>
-                    <img src={item.poster} alt={this.props.reduxStore.item.title}
+                    <h2>{movie.title}</h2>
+                    <img src={movie.poster} alt={this.props.reduxStore.movie.title}
                     onClick = {()=>{this.movieDetails(id)}}
                     />
-                    {/* <p>{movie.description}</p> */}
                 </div>
             </Router>
             );

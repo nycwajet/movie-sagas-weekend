@@ -23,7 +23,7 @@ function* rootSaga() {
 function* getMovieSaga(action) {
     try {
         let response = yield axios.get('/api/movies')
-        console.log(response.data)
+        console.log(response.data);
         yield put({
             type: 'SET_MOVIES',
             payload: response.data
@@ -36,7 +36,7 @@ function* getMovieSaga(action) {
 function* getDetailSaga(action) {
     try {
         let response = yield axios.get(`/api/movies/${action.payload}`)
-        console.log(response.data)
+        console.log(response.data);
         yield put({
             type: 'GET_DETAILS',
             payload: response.data
@@ -107,7 +107,7 @@ const details = (state= [], action) => {
     }
 }
 
-const movie = (state =-1, action) => {
+const movieReducer = (state =-1, action) => {
     switch (action.type) {
         case 'CURRENT_MOVIE':
             return action.payload;
@@ -123,7 +123,7 @@ const storeInstance = createStore(
         genres,
         update,
         details,
-        movie,
+        movieReducer,
     }),
     // Add sagaMiddleware to our store
     applyMiddleware(sagaMiddleware, logger),

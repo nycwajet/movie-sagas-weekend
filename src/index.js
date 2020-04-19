@@ -15,6 +15,7 @@ import axios from 'axios'
 // Create the rootSaga generator function
 function* rootSaga() {
     yield takeEvery('GET_MOVIES', getMovieSaga);
+    yield takeEvery('GET_DETAILS', getDetailSaga);
 }
 
 //function to route all movies request
@@ -28,6 +29,19 @@ function* getMovieSaga(action) {
         })
     } catch (error) {
         console.log(error)
+    }
+}
+
+function* getDetailSaga(action) {
+    try {
+        let response = yield axios.get(`/movies/${action.payload}`)
+        console.log(response.data)
+        yield put({
+            type: 'GET_DETAILS',
+            payload: response.data[0]
+        })
+    } catch (err) {
+        console.log(err)
     }
 }
 

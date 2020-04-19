@@ -12,8 +12,27 @@ import createSagaMiddleware from 'redux-saga';
 
 // Create the rootSaga generator function
 function* rootSaga() {
-
+    yield takeEvery('GET_MOVIES', getMovieSaga);
 }
+
+//function to route all movies request
+function* getMovieSaga(action) {
+    try {
+        let response = yield axios.get('/movies')
+        console.log(response.data)
+        yield put({
+            type: 'SET_MOVIES',
+            payload: response.data
+        })
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+
+
+
+
 
 // Create sagaMiddleware
 const sagaMiddleware = createSagaMiddleware();

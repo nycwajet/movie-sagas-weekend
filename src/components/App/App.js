@@ -1,15 +1,41 @@
 import React, { Component } from 'react';
 import './App.css';
+import {connect} from 'react-redux';
+import { HashRouter as Router, Route, Link } from 'react-router-dom';
+import Home from '../Home/Home';
+import MovieDetails from '../MovieDetails/MovieDetails';
+import MovieEdit from '../MovieEdit/MovieEdit';
+
 
 class App extends Component {
   // Renders the entire app on the DOM
+  componentDidMount(){
+    displayAllMovies
+  }
+
+  displayAllMovies = ()=>{
+    this.props.dispatch({
+      type: 'GET_MOVIES'
+    })
+  }
+
+
+
+
   render() {
     return (
-      <div className="App">
-        <p>Empty Page</p>
-      </div>
+      <Router>
+        <div className="App">
+          
+          <div>
+              <Route exact path="/" component={Home} />
+              <Route exact path="/details" component={MovieDetails} />
+              <Route exact path="/edit" component={MovieEdit} />
+            </div>
+        </div>
+      </Router>
     );
   }
 }
 
-export default App;
+export default connect() (App);

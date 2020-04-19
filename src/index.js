@@ -16,12 +16,13 @@ import axios from 'axios'
 function* rootSaga() {
     yield takeEvery('GET_MOVIES', getMovieSaga);
     yield takeEvery('GET_DETAILS', getDetailSaga);
+    yield takeEvery('UPDATE_MOVIE', updateMovieSaga);
 }
 
 //function to route all movies request
 function* getMovieSaga(action) {
     try {
-        let response = yield axios.get('/movies')
+        let response = yield axios.get('/api/movies')
         console.log(response.data)
         yield put({
             type: 'SET_MOVIES',
@@ -34,7 +35,7 @@ function* getMovieSaga(action) {
 
 function* getDetailSaga(action) {
     try {
-        let response = yield axios.get(`/movies/${action.payload}`)
+        let response = yield axios.get(`/api/movies/${action.payload}`)
         console.log(response.data)
         yield put({
             type: 'GET_DETAILS',
@@ -42,6 +43,20 @@ function* getDetailSaga(action) {
         })
     } catch (err) {
         console.log(err)
+    }
+}
+
+
+function* updateMovieSaga(action) {
+    try {
+        let response = yield axios.put(`/api/movies/+${action.payload.id}`)
+        console.log(response.data);
+        yield put({
+            type: 'GET_MOVIES',
+            payload: response.data
+        })
+    } catch (error) {
+        console.log('Error in update',error);
     }
 }
 
@@ -63,10 +78,38 @@ const movies = (state = [], action) => {
     }
 }
 
+
 // Used to store the movie genres
 const genres = (state = [], action) => {
     switch (action.type) {
         case 'SET_GENRES':
+            return action.payload;
+        default:
+            return state;
+    }
+}
+
+const update = (state= [], action) => {
+    switch (action.type) {
+        case 'UPDATE_MOVIE':
+            return [...state, action.payload];
+        default:
+            return state;
+    }
+}
+
+const details = (state= [], action) => {
+    switch (action.type) {
+        case 'GET_DETAILS':
+            return action.payload;
+        default:
+            return state;
+    }
+}
+
+const movie = (state =-1, action) => {
+    switch (action.type) {
+        case 'CURRENT_MOVIE':
             return action.payload;
         default:
             return state;
@@ -78,6 +121,9 @@ const storeInstance = createStore(
     combineReducers({
         movies,
         genres,
+        update,
+        details,
+        movie,
     }),
     // Add sagaMiddleware to our store
     applyMiddleware(sagaMiddleware, logger),
